@@ -1,0 +1,32 @@
+1.Adding the Second Default Route:
+
+config router static
+edit 2
+  set gateway 10.200.2.254
+  set device port2
+  set distance 20
+  set priority 5
+next
+end
+2.Setting Up Link Health Monitors:
+config system link-monitor
+edit "port1-monitor"
+  set srcintf "port1"
+  set server "4.2.2.1"
+  set protocol ping
+next
+edit "port2-monitor"
+  set srcintf "port2"
+  set server "4.2.2.2"
+  set protocol ping
+next
+end
+
+3.Forcing the Failover:
+config system link-monitor
+edit "port1-monitor"
+  set server "10.200.1.13"
+next
+end
+
+
